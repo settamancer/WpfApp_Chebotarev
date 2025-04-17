@@ -1,0 +1,56 @@
+﻿<Window x:Class="WpfApp_Chebotarev.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp_Chebotarev"
+        mc:Ignorable="d"
+        Title="Авторизация" MinHeight="300" MinWidth="400" SizeToContent="WidthAndHeight">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="Violet" Offset="0.0"/>
+            <GradientStop Color="DarkViolet" Offset="1.0"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Авторизация"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="Black"
+                   HorizontalAlignment="Center"
+                   Margin="0,10" FontFamily="Bahnschrift"/>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" Width="300" HorizontalAlignment="Center">
+            <TextBlock Text="Логин" FontWeight="ExtraBold" FontSize="20" Foreground="Black" HorizontalAlignment="Center"/>
+            <TextBox x:Name="txtUsername"
+                     Margin="0,5,0,10"
+                     Height="25"
+                     Width="200"
+                     Background="#FFF"
+                     BorderBrush="#CCC"
+                     BorderThickness="1"/>
+            <TextBlock Text="Пароль" Foreground="Black" HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="20"/>
+            <PasswordBox x:Name="txtPassword"
+                         Margin="0,5,0,10"
+                         Height="25"
+                         Width="200"
+                         Background="#FFF"
+                         BorderBrush="#CCC"
+                         BorderThickness="1"/>
+            <Button Content="Войти"
+                    Width="120"
+                    Height="30"
+                    Background="Gray"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    Cursor="Hand"
+                    Margin="0,10,0,0"
+                    BorderThickness="0"
+                    Click="BtnLogin_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

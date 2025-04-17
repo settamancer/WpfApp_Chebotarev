@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfApp_Chebotarev.ManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp_Chebotarev"
+        mc:Ignorable="d"
+        Title="Система управления отелем" Height="600" Width="800">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="DarkViolet" Offset="0.0"/>
+            <GradientStop Color="Violet" Offset="1.0"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid Margin="10">
+        <TabControl Background="Transparent">
+            <TabItem Header="Гости">
+                <Frame Name="GuestFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem Header="Бронирование">
+                <Frame Name="BookingsFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem Header="Номерной фонд">
+                <Frame Name="RoomsFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem Header="Управление клинингом">
+                <Frame Name="CleaningManagementFrame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

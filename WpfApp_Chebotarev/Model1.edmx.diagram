@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0b824a9bab534daaa02623778ea5493b" Name="Diagram1">
+        <EntityTypeShape EntityType="RogatinaModel.Category" Width="1.5" PointX="11.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RogatinaModel.Floors" Width="1.5" PointX="4.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="RogatinaModel.Guests" Width="1.5" PointX="7.875" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RogatinaModel.Roles" Width="1.5" PointX="12.125" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RogatinaModel.Room_status" Width="1.5" PointX="2.375" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RogatinaModel.Room_stock" Width="1.5" PointX="7.875" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RogatinaModel.sysdiagrams" Width="1.5" PointX="2.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RogatinaModel.Users" Width="1.5" PointX="10.125" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="RogatinaModel.FK_Room_stock_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="RogatinaModel.FK_Room_stock_Floors" ManuallyRouted="false" />
+        <AssociationConnector Association="RogatinaModel.FK_Guests_Room_stock" ManuallyRouted="false" />
+        <AssociationConnector Association="RogatinaModel.FK_Guests_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RogatinaModel.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="RogatinaModel.FK_Room_stock_Room_status" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
