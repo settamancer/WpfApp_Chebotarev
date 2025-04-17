@@ -31,7 +31,7 @@
                 Width="160"
                 Height="30"
                 Background="Gray"
-                Foreground="White"
+                Foreground="White" 
                 FontWeight="Bold"
                 Cursor="Hand"
                 BorderThickness="0"
