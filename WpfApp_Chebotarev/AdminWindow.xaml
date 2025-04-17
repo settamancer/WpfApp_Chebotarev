@@ -18,7 +18,8 @@
             CanUserAddRows="False"
             IsReadOnly="False"
             SelectionMode="Single" 
-            SelectionChanged="Users_SelectionChanged_1">
+            SelectionChanged="Users_SelectionChanged_1"
+            Background="Transparent">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding lastname}" Width="Auto"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding firstname}" Width="Auto"/>
