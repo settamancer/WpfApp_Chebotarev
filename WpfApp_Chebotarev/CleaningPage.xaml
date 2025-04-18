@@ -21,6 +21,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Выбор ответственного →" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
             <ComboBox x:Name="usersComboBox" 
                   DisplayMemberPath="users" 
                   SelectedValuePath="users"
@@ -37,6 +38,7 @@
                   VerticalAlignment="Center"
                   Width="150">
             </ComboBox>
+            <Label Content="← Выбор комнаты" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Background="Transparent">
             <DatePicker x:Name="cleaningDatePicker"  Width="230" HorizontalAlignment="Center" BorderThickness="0"/>
