@@ -33,5 +33,16 @@ namespace WpfApp_Chebotarev
         {
 
         }
+
+        private void Button_Click_Save_User(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_AddUser(object sender, RoutedEventArgs e)
+        {
+            AddUser addUser = new AddUser();
+            addUser.Show();
+        }
     }
 }

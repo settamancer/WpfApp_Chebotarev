@@ -1,27 +1,103 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WpfApp_Chebotarev
 {
-    /// <summary>
-    /// Interaction logic for AddUser.xaml
-    /// </summary>
     public partial class AddUser : Window
     {
         public AddUser()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click_Save_User(object sender, RoutedEventArgs e)
+        {
+
+            string firstname = LName_user.Text.Trim();
+            string lastname = FName_user.Text.Trim();
+            string username = Username.Text.Trim();
+            string password = Password.Text.Trim();
+            string role = RoleComboBox.SelectedItem?.ToString();
+
+  
+            if (string.IsNullOrWhiteSpace(firstname))
+            {
+                MessageBox.Show("Поле 'Имя' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(lastname))
+            {
+                MessageBox.Show("Поле 'Фамилия' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                MessageBox.Show("Поле 'Имя Пользователя' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Поле 'Пароль' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(role))
+            {
+                MessageBox.Show("Выберите роль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+
+            var newUser = new User
+            {
+                firstname = firstname,
+                lastname = lastname,
+                username = username,
+                password = password,
+                role = role,
+                IsLocked = false,
+                IsFirstLogin = true,
+                LastLoginDate = null
+            };
+
+            try
+            {
+                using (var context = new DBEntities())
+                {
+                    context.Users.Add(newUser);
+                    context.SaveChanges();
+                }
+
+                MessageBox.Show("Пользователь успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+                LName_user.Clear();
+                FName_user.Clear();
+                Username.Clear();
+                Password.Clear();
+                RoleComboBox.SelectedIndex = -1;
+
+
+                this.Close();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Обработка ошибок валидации EF6
+                var errors = ex.EntityValidationErrors
+                    .SelectMany(x => x.ValidationErrors)
+                    .Select(x => $"{x.PropertyName}: {x.ErrorMessage}")
+                    .ToList();
+
+                string errorMessage = string.Join("\n", errors);
+                MessageBox.Show($"Ошибка валидации:\n{errorMessage}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок подключения к бд
+                MessageBox.Show($"Произошла ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
