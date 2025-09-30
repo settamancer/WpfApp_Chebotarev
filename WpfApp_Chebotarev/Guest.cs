@@ -12,18 +12,19 @@ namespace WpfApp_Chebotarev
     using System;
     using System.Collections.Generic;
     
-    public partial class Room_status
+    public partial class Guest
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Room_status()
+        public Guest()
         {
-            this.Room_stock = new HashSet<Room_stock>();
+            this.Reservations = new HashSet<Reservation>();
         }
     
         public int id { get; set; }
-        public string name_status { get; set; }
+        public string fullName { get; set; }
+        public int documentNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Room_stock> Room_stock { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

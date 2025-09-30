@@ -10,10 +10,17 @@
 namespace WpfApp_Chebotarev
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class Reservation
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int id { get; set; }
+        public Nullable<int> guest_id { get; set; }
+        public Nullable<int> room_id { get; set; }
+        public Nullable<System.DateTime> checkIn { get; set; }
+        public Nullable<System.DateTime> checkOut { get; set; }
+    
+        public virtual Guest Guest { get; set; }
+        public virtual Room Room { get; set; }
     }
 }

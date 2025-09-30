@@ -34,8 +34,7 @@
                      Width="150"
                      Foreground="White"
                      FontWeight="Bold"
-                     Cursor="Hand" 
-                     Click="refreshButtonClicked" 
+                     Cursor="Hand"
                      Margin="300, 300, 300, 0" 
                      Background="Gray"/>
         </StackPanel>

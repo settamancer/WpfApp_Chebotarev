@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WpfApp_Rogatina_MS
+namespace WpfApp_Chebotarev
 {
     /// <summary>
     /// Interaction logic for AdminWindow.xaml
@@ -24,12 +24,12 @@ namespace WpfApp_Rogatina_MS
             InitializeComponent();
         }
 
-        private void Users_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Users_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
         }

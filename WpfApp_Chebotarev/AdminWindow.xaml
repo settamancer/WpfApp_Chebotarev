@@ -18,7 +18,6 @@
             CanUserAddRows="False"
             IsReadOnly="False"
             SelectionMode="Single" 
-            SelectionChanged="Users_SelectionChanged_1"
             Background="Transparent">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding lastname}" Width="Auto"/>
@@ -37,8 +36,7 @@
                 Foreground="White"
                 FontWeight="Bold"
                 Cursor="Hand"
-                BorderThickness="0"
-                Click="BtnUnblock_Click"/>
+                BorderThickness="0" Click="Button_Click"/>
             <Button Content="Добавить пользователя" 
                 Width="160"
                 Height="30"
@@ -46,8 +44,7 @@
                 Foreground="White"
                 FontWeight="Bold"
                 Cursor="Hand"
-                BorderThickness="0"
-                Click="BtnAddUser_Click"/>
+                BorderThickness="0"/>
             <Button Content="Сохранить изменения"
                 Margin="5"
                 Width="160"
@@ -56,8 +53,7 @@
                 Foreground="White"
                 FontWeight="Bold"
                 Cursor="Hand"
-                BorderThickness="0"
-                Click="BtnSave_Click"/>
+                BorderThickness="0"/>
         </StackPanel>
     </Grid>
 </Window>

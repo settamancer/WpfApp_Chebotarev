@@ -12,18 +12,17 @@ namespace WpfApp_Chebotarev
     using System;
     using System.Collections.Generic;
     
-    public partial class Floors
+    public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Floors()
-        {
-            this.Room_stock = new HashSet<Room_stock>();
-        }
-    
         public int id { get; set; }
-        public string floor_name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Room_stock> Room_stock { get; set; }
+        public string lastname { get; set; }
+        public string firstname { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string role { get; set; }
+        public Nullable<int> FailedLoginAttempts { get; set; }
+        public Nullable<bool> IsLocked { get; set; }
+        public Nullable<bool> IsFirstLogin { get; set; }
+        public Nullable<System.DateTime> LastLoginDate { get; set; }
     }
 }

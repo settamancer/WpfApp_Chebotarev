@@ -34,8 +34,7 @@
                 Foreground="White" 
                 FontWeight="Bold"
                 Cursor="Hand"
-                BorderThickness="0"
-                Click="BtnAddBooking_Click"/>
+                BorderThickness="0"/>
             <Button Content="Сохранить бронирование"
                 Margin="5"
                 Width="160"
@@ -44,8 +43,7 @@
                 Foreground="White"
                 FontWeight="Bold"
                 Cursor="Hand"
-                BorderThickness="0"
-                Click="BtnSaveBooking_Click"/>
+                BorderThickness="0"/>
         </StackPanel>
     </Grid>
 </Page>
