@@ -105,8 +105,9 @@
                     FontWeight="Bold"
                     HorizontalAlignment="Center"
                     Cursor="Hand"
+                    IsDefault="True"
                     Margin="0,10,0,0"
-                    BorderThickness="0" Click="Button_Click_1"/>
+                    BorderThickness="3" Click="Button_Click_1"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -8,41 +8,26 @@ namespace WpfApp_Chebotarev
 {
     public partial class AddUser : Window
     {
+        public User NewUser { get; private set; }
         public AddUser()
         {
             InitializeComponent();
         }
 
-        private void Button_Click_Save_User(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click_Save(object sender, RoutedEventArgs e)
 
+        {
             string firstname = LName_user.Text.Trim();
             string lastname = FName_user.Text.Trim();
             string username = Username.Text.Trim();
             string password = Password.Text.Trim();
-            string role = RoleComboBox.SelectedItem?.ToString();
 
-  
-            if (string.IsNullOrWhiteSpace(firstname))
+            string role = string.Empty;
+            if (RoleComboBox.SelectedItem is ComboBoxItem selectedItem) // Проверяем, что это ComboBoxItem
             {
-                MessageBox.Show("Поле 'Имя' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                role = selectedItem.Content?.ToString(); // Если это ComboBoxItem, берем Content
             }
-            if (string.IsNullOrWhiteSpace(lastname))
-            {
-                MessageBox.Show("Поле 'Фамилия' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                MessageBox.Show("Поле 'Имя Пользователя' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                MessageBox.Show("Поле 'Пароль' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+
             if (string.IsNullOrWhiteSpace(role))
             {
                 MessageBox.Show("Выберите роль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -50,7 +35,33 @@ namespace WpfApp_Chebotarev
             }
 
 
-            var newUser = new User
+                    if (string.IsNullOrWhiteSpace(firstname))
+                    {
+                        MessageBox.Show("Поле 'Имя' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(lastname))
+                    {
+                        MessageBox.Show("Поле 'Фамилия' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(username))
+                    {
+                        MessageBox.Show("Поле 'Имя Пользователя' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(password))
+                    {
+                        MessageBox.Show("Поле 'Пароль' обязательно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(role)) 
+                    { 
+                        MessageBox.Show("Выберите роль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning); return;
+
+                    }
+
+            this.NewUser = new User
             {
                 firstname = firstname,
                 lastname = lastname,
@@ -66,11 +77,12 @@ namespace WpfApp_Chebotarev
             {
                 using (var context = new DBEntities())
                 {
-                    context.Users.Add(newUser);
+                    context.Users.Add(NewUser);
                     context.SaveChanges();
                 }
 
-                MessageBox.Show("Пользователь успешно добавлен!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.DialogResult = true;
+                this.Close();
 
 
                 LName_user.Clear();
@@ -80,7 +92,6 @@ namespace WpfApp_Chebotarev
                 RoleComboBox.SelectedIndex = -1;
 
 
-                this.Close();
             }
             catch (DbEntityValidationException ex)
             {
@@ -98,6 +109,28 @@ namespace WpfApp_Chebotarev
                 // Обработка ошибок подключения к бд
                 MessageBox.Show($"Произошла ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            try
+            {
+                // ...
+                MessageBox.Show("Данные пользователя введены успешно.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                // ...
+                MessageBox.Show($"Ошибка при добавлении пользователя: {ex.Message}", "Ошибка");
+            }
+        }   
+
+
+       
+        private void Button_Click_Cancel(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close ();
         }
+
     }
+    
 }

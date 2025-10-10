@@ -13,12 +13,13 @@
         </LinearGradientBrush>
     </Window.Background>
     <Grid Margin="10,10,10,10">
-        <DataGrid x:Name="Users"
-            AutoGenerateColumns="False"
+        <DataGrid x:Name="DataGridUsers"
+            AutoGenerateColumns="True"
             CanUserAddRows="False"
             IsReadOnly="False"
             SelectionMode="Single" 
-            Background="Transparent">
+            Background="Transparent"
+            ColumnWidth="*">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding lastname}" Width="Auto"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding firstname}" Width="Auto"/>
@@ -35,8 +36,7 @@
                 Background="Gray"
                 Foreground="White"
                 FontWeight="Bold"
-                Cursor="Hand"
-                BorderThickness="0"/>
+                Cursor="Hand" Click="Button_Click_Unblock"/>
             <Button Content="Добавить пользователя" 
                 Width="160"
                 Height="30"
@@ -45,7 +45,7 @@
                 FontWeight="Bold"
                 Cursor="Hand"
                 BorderThickness="0" Click="Button_Click_AddUser"/>
-            <Button Content="Сохранить изменения"
+            <Button Content="Удалить пользователя"
                 Margin="5"
                 Width="160"
                 Height="30"
@@ -53,8 +53,7 @@
                 Foreground="White"
                 FontWeight="Bold"
                 Cursor="Hand"
-                BorderThickness="0"
-                Click="Button_Click_Save_User"/>
+                BorderThickness="0" Click="Button_Click_Delete_User"/>
         </StackPanel>
     </Grid>
 </Window>

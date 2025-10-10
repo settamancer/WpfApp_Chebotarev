@@ -31,20 +31,34 @@
         <Label Content="Пароль: " Grid.Row="3" FontStyle="Italic" FontWeight="Bold"/>
         <TextBox x:Name="Password" Grid.Row="3" Margin="100, 0, 0, 5" Height="25" Width="200"/>
         <Label Content="Роль: " Grid.Row="4" FontStyle="Italic" FontWeight="Bold"/>
-        <ComboBox x:Name="RoleComboBox" Grid.Row="4" Margin="100, 0, 0, 5" Height="25" Width="200">
+        <ComboBox x:Name="RoleComboBox" SelectedValuePath="Content" DisplayMemberPath="Content" Grid.Row="4" Margin="100, 0, 0, 5" Height="25" Width="200">
             <ComboBoxItem Content="Admin"/>
             <ComboBoxItem Content="Manager"/>
             <ComboBoxItem Content="Cleaning_staff"/>
         </ComboBox>
-        <Button Content="Добавить" 
-                Grid.Row="5" 
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 40, 0, 40">
+            <Button Content="Добавить"  
                 HorizontalAlignment="Center" 
                 Width="160" 
                 Height="30" 
+                Margin="5"
                 Cursor="Hand"
                 Background="Gray"
                 Foreground="White"
                 FontWeight="Bold"
-                Margin="0, 30, 0, 30"/>
+                Click="Button_Click_Save"/>
+            <Button Content="Отменить"  
+                HorizontalAlignment="Center" 
+                Width="160" 
+                Height="30" 
+                Margin="5"
+                Cursor="Hand"
+                Background="Gray"
+                Foreground="White"
+                FontWeight="Bold"
+                Click="Button_Click_Cancel"/>
+        </StackPanel>
+
+        
     </Grid>
 </Window>
