@@ -115,7 +115,7 @@ namespace WpfApp_Chebotarev
                 }
 
                 Users.Remove(user); 
-                MessageBox.Show($"Пользователь '{user.username}' успешно удалён.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Пользователь '{user.username.Trim()}' успешно удалён.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -159,7 +159,7 @@ namespace WpfApp_Chebotarev
                 selectedUser.IsLocked = false;
                 selectedUser.FailedLoginAttempts = 0;
 
-                MessageBox.Show($"Пользователь '{selectedUser.username}' успешно разблокирован", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Пользователь '{selectedUser.username.Trim()}' успешно разблокирован", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

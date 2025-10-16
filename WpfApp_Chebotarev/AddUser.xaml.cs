@@ -63,10 +63,10 @@ namespace WpfApp_Chebotarev
 
             this.NewUser = new User
             {
-                firstname = firstname,
-                lastname = lastname,
-                username = username,
-                password = password,
+                firstname = firstname.Trim(),
+                lastname = lastname.Trim(),
+                username = username.Trim(),
+                password = password.Trim(),
                 role = role,
                 IsLocked = false,
                 IsFirstLogin = true,

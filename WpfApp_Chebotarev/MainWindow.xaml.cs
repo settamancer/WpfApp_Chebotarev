@@ -22,25 +22,31 @@ namespace WpfApp_Chebotarev
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
             string username = txtUsername.Text.Trim();
-        string password = txtPassword.Password;
+            string password = txtPassword.Password.Trim();
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Пожалуйста, введите логин и пароль");
                 return;
             }
-
             using (var context = new DBEntities())
             {
                 var user = await context.Users
                     .Where(u => u.username == username)
                     .FirstOrDefaultAsync();
-                if (user == null)
+
+                Debug.WriteLine("Введённый логин: " + username);
+                Debug.WriteLine("Введённый пароль: '" + password + "'");
+
+                if (user != null)
                 {
-                    MessageBox.Show("Такого пользователя не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    Debug.WriteLine("Пароль пользователя из базы: '" + user.password + "'");
                 }
-if (user.IsLocked.HasValue && user.IsLocked.Value)
+                else
+                {
+                    Debug.WriteLine("Пользователь не найден!");
+                }
+                if (user.IsLocked.HasValue && user.IsLocked.Value)
 {
     MessageBox.Show("Вы заблокированы. Обратитесь к Администратору.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
     return;
@@ -52,7 +58,10 @@ if (user.LastLoginDate.HasValue && (DateTime.Now - user.LastLoginDate.Value).Tot
     MessageBox.Show("Вы заблокированы. Обратитесь к Администратору.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
     return;
 }
-if (user.password == password)
+                // Debug
+                Debug.WriteLine($"Сравнение: [{user.password}] == [{password}]");
+
+if (user.password.Trim() == password)
 {
     user.LastLoginDate = DateTime.Now;
     user.FailedLoginAttempts = 0;
@@ -73,7 +82,7 @@ if (user.password == password)
             AdminWindow adminWindow = new AdminWindow();
             adminWindow.Show();
         }
-        else if (user.role == "Management")
+        else if (user.role == "Manager")
         {
             ManagerWindow managerWindow = new ManagerWindow();
             managerWindow.Show();
@@ -111,108 +120,5 @@ else
             
 
         }
-
-        //private async void Button_Click_1(object sender, RoutedEventArgs e)
-        //{
-
-        //    // Получаем данные из полей
-        //    string login = txtUsername.Text.Trim();
-        //    string password = txtPassword.Password.Trim();
-
-
-        //    if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
-        //    {
-        //        MessageBox.Show("Пожалуйста, заполните все поля.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return;
-        //    }
-
-        //    using (var context = new DBEntities()) // Или как называется ваш контекст
-        //    {
-        //        var user = await context.Users.FirstOrDefaultAsync(u => u.username == login && u.password == password);
-              
-
-
-        //        if (user == null)
-        //        {
-        //            MessageBox.Show("Пользователь не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //            return;
-        //        }
-
-        //        // Проверка блокировки по времени (если не админ)
-        //        if (user.LastLoginDate.HasValue &&
-        //            (DateTime.Now - user.LastLoginDate.Value).TotalDays > 30 &&
-        //            user.role != "Admin")
-        //        {
-        //            user.IsLocked = true;
-        //            await context.SaveChangesAsync();
-        //            MessageBox.Show("Вы заблокированы. Обратитесь к Администратору.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //            return;
-        //        }
-
-        //        // Проверка блокировки по количеству попыток
-        //        if ((bool)user.IsLocked)
-        //        {
-        //            MessageBox.Show("Вы заблокированы. Обратитесь к Администратору.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //            return;
-        //        }
-      
-        //        // Проверка пароля
-        //        if (user.password == password)
-        //        {
-        //            // Успешный вход
-        //            user.LastLoginDate = DateTime.Now;
-        //            user.FailedLoginAttempts = 0;
-        //            await context.SaveChangesAsync();
-
-        //            MessageBox.Show("Вы успешно авторизовались!", "Ура!", MessageBoxButton.OK, MessageBoxImage.Information);
-
-        //            // Проверяем, нужно ли менять пароль
-        //            if (user.IsFirstLogin.HasValue && user.IsFirstLogin.Value)
-        //            {
-        //                ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(user.id);
-        //                changePasswordWindow.Owner = this;
-        //                changePasswordWindow.ShowDialog();
-        //            }
-        //            else
-        //            {
-        //                // Открываем окно по роли
-        //                if (user.role == "Admin")
-        //                {
-        //                    AdminWindow adminWindow = new AdminWindow();
-        //                    adminWindow.Show();
-        //                }
-        //                else if (user.role == "Management")
-        //                {
-        //                    var managerWindow = new ManagerWindow();
-        //                    managerWindow.Show();
-        //                }
-        //                else if (user.role == "Cleaning_staff")
-        //                {
-        //                    var cleaningStaffWin = new clSchedule();
-        //                    cleaningStaffWin.Show();
-        //                }
-        //            }
-
-        //            this.Close(); // Закрываем MainWindow
-        //        }
-        //        else
-        //        {
-        //            // Неверный пароль
-        //            user.FailedLoginAttempts++;
-        //            if (user.FailedLoginAttempts == 10)
-        //            {
-        //                user.IsLocked = true;
-        //                await context.SaveChangesAsync();
-        //                MessageBox.Show("Вы заблокированы. Обратитесь к администратору.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //            }
-        //            else
-        //            {
-        //                int attemptsLeft = 3 - (int)user.FailedLoginAttempts;
-        //                MessageBox.Show($"Неправильный пароль. Осталось попыток {attemptsLeft}.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //            }
-        //            await context.SaveChangesAsync();
-        //        }
-        //    }
-        //}
     }
 }
