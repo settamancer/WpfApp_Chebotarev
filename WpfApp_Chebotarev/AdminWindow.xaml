@@ -44,6 +44,7 @@
                 Foreground="White"
                 FontWeight="Bold"
                 Cursor="Hand"
+                IsDefault="True"
                 BorderThickness="0" Click="Button_Click_AddUser"/>
             <Button Content="Удалить пользователя"
                 Margin="5"

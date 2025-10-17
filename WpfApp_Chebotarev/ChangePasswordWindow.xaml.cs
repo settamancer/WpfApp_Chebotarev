@@ -1,26 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
 namespace WpfApp_Chebotarev
 {
-    /// <summary>
-    /// Interaction logic for ChangePasswordWindow.xaml
-    /// </summary>
     public partial class ChangePasswordWindow : Window
     {
+
         public int UserId { get; set; }
 
         public ChangePasswordWindow()
@@ -32,70 +16,54 @@ namespace WpfApp_Chebotarev
         {
             InitializeComponent();
             UserId = userId;
+            MessageBox.Show($"ChangePasswordWindow создан с UserId: {UserId}");
         }
-    
+
         private void ChangePasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            string oldPassword = txtCurrentPassword.Password.Trim();
+            string newPassword = txtNewPassword.Password.Trim();
+
+            using (var context = new DBEntities())
             {
-                string oldPassword = txtCurrentPassword.Password.Trim();
-                string newPassword = txtNewPassword.Password.Trim();
+                var user = context.Users.FirstOrDefault(u => u.id == UserId);
 
-
-                if (CheckOldPassword(oldPassword.Trim()))
+                if (user == null)
                 {
-                    if (ValidateNewPassword(newPassword.Trim()))
-                    {
-                        SaveNewPassword(newPassword.Trim());
-                        MessageBox.Show("Пароль успешно изменён.");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Новый пароль не соответствует требованиям.");
-                    }
+                    MessageBox.Show("Пользователь не найден.");
+                    return;
                 }
-                else
+
+                if (user.password.Trim() != oldPassword)
                 {
                     MessageBox.Show("Старый пароль введён неверно.");
+                    return;
+                }
+
+                if (newPassword.Length < 6)
+                {
+                    MessageBox.Show("Новый пароль должен содержать минимум 6 символов.");
+                    return;
+                }
+
+                user.password = newPassword.Trim();
+                user.IsFirstLogin = false;
+                context.SaveChanges();
+
+                MessageBox.Show("Пароль успешно изменён.");
+
+                // Открытие окна по роли
+                Window nextWindow = null;
+                switch (user.role)
+                {
+                    case "Admin": nextWindow = new AdminWindow(); break;
+                    case "Manager": nextWindow = new ManagerWindow(); break;
+                    case "Cleaning_staff": nextWindow = new clSchedule(); break;
+                    default: nextWindow = new MainWindow(); break;
+                }
+                nextWindow.Show();
+                this.Close();
             }
         }
-
-        private bool CheckOldPassword(string oldPassword)
-        {
-            using (var context = new DBEntities())
-            {
-                var user = context.Users.FirstOrDefault(u => u.id == UserId);
-                if (user != null)
-                {
-                    // Debug
-                    Debug.WriteLine($"Сравнение: [{user.password}] == [{oldPassword}]");
-                    return user.password.Trim() == oldPassword;
-                }
-            }
-            return false;
-        }
-
-
-        private bool ValidateNewPassword(string newPassword)
-        {
-            return newPassword.Length >= 6;
-        }
-
-        private void SaveNewPassword(string newPassword)
-        {
-            using (var context = new DBEntities())
-            {
-                var user = context.Users.FirstOrDefault(u => u.id == UserId);
-                if (user != null)
-                {
-                    user.password = newPassword.Trim();
-                    context.SaveChanges();
-                }
-                else
-                {
-                    MessageBox.Show("Пользователь не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        
-        }
-        
     }
 }
