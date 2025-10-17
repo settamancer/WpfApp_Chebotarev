@@ -62,17 +62,17 @@ namespace WpfApp_Chebotarev
         {
             using (var context = new DBEntities())
             {
-                var user = context.Users.FirstOrDefault(u => u.password.Trim() == oldPassword.Trim());
+                var user = context.Users.FirstOrDefault(u => u.id == UserId);
                 if (user != null)
                 {
                     // Debug
                     Debug.WriteLine($"Сравнение: [{user.password}] == [{oldPassword}]");
                     return user.password.Trim() == oldPassword;
-
                 }
             }
             return false;
         }
+
 
         private bool ValidateNewPassword(string newPassword)
         {
