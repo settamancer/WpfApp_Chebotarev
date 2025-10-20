@@ -107,6 +107,7 @@ namespace WpfApp_Chebotarev
                     if (userToDelete != null)
                     {
                         context.Users.Remove(userToDelete);
+                        context.SaveChanges();
                     }
                     else
                     {

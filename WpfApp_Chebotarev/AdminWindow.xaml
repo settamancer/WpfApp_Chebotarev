@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp_Chebotarev"
         mc:Ignorable="d"
-        Title="Панель администратора" MinHeight="450" MinWidth="800" SizeToContent="WidthAndHeight" ResizeMode="CanResize">
+        Title="Панель администратора" MinHeight="450" MinWidth="800" ResizeMode="CanResize">
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="Violet" Offset="0.0"/>
@@ -14,18 +14,18 @@
     </Window.Background>
     <Grid Margin="10,10,10,10">
         <DataGrid x:Name="DataGridUsers"
-            AutoGenerateColumns="True"
+            AutoGenerateColumns="False"
             CanUserAddRows="False"
             IsReadOnly="False"
             SelectionMode="Single" 
             Background="Transparent"
             ColumnWidth="*">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding lastname}" Width="Auto"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding firstname}" Width="Auto"/>
-                <DataGridTextColumn Header="Роль" Binding="{Binding role}" Width="Auto"/>
-                <DataGridTextColumn Header="Логин" Binding="{Binding username}" Width="Auto"/>
-                <DataGridTextColumn Header="Заблокирован" Binding="{Binding IsLocked}" Width="Auto"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding lastname}" Width="*"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding firstname}" Width="*"/>
+                <DataGridTextColumn Header="Роль" Binding="{Binding role}" Width="*"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding username}" Width="*"/>
+                <DataGridTextColumn Header="Заблокирован" Binding="{Binding IsLocked}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0, 0, 20">
