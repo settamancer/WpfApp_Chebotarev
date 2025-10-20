@@ -72,11 +72,10 @@ if (user.password.Trim() == password.Trim())
     if (user.IsFirstLogin.HasValue && user.IsFirstLogin.Value)
     {
         MessageBox.Show($"Перед вызовом окна смены пароля. UserId: {user.id}");
-        var window = new ChangePasswordWindow(user.id);
-        window.ShowDialog();
-        ChangePasswordWindow changePasswordWindow = new ChangePasswordWindow(user.id);
+        var changePasswordWindow = new ChangePasswordWindow(user.id);
         changePasswordWindow.Owner = this;
         changePasswordWindow.ShowDialog();
+
     }
     else
     {
