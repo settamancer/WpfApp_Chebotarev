@@ -31,7 +31,8 @@
         <Label Content="Пароль: " Grid.Row="3" FontStyle="Italic" FontWeight="Bold"/>
         <TextBox x:Name="Password" Grid.Row="3" Margin="100, 0, 0, 5" Height="25" Width="200"/>
         <Label Content="Роль: " Grid.Row="4" FontStyle="Italic" FontWeight="Bold"/>
-        <ComboBox x:Name="RoleComboBox" SelectedValuePath="Content" DisplayMemberPath="Content" Grid.Row="4" Margin="100, 0, 0, 5" Height="25" Width="200">
+        <ComboBox x:Name="RoleComboBox" SelectedIndex="0" SelectedValuePath="Content" DisplayMemberPath="Content" Grid.Row="4" Margin="100, 0, 0, 5" Height="25" Width="200">
+            <ComboBoxItem Content="Выберите роль..." IsEnabled="False" IsSelected="True"/>
             <ComboBoxItem Content="Admin"/>
             <ComboBoxItem Content="Manager"/>
             <ComboBoxItem Content="Cleaning_staff"/>

@@ -16,7 +16,6 @@ namespace WpfApp_Chebotarev
         {
             InitializeComponent();
             UserId = userId;
-            MessageBox.Show($"ChangePasswordWindow создан с UserId: {UserId}");
         }
 
         private void ChangePasswordButton_Click(object sender, RoutedEventArgs e)
