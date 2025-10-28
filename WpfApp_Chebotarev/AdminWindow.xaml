@@ -55,6 +55,15 @@
                 FontWeight="Bold"
                 Cursor="Hand"
                 BorderThickness="0" Click="Button_Click_Delete_User"/>
+            <Button Content="Выйти"
+                Margin="5"
+                Width="160"
+                Height="30"
+                Background="Gray"
+                Foreground="White"
+                FontWeight="Bold"
+                Cursor="Hand" Click="Button_Click_EXit"
+                />
         </StackPanel>
     </Grid>
 </Window>
