@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp_Chebotarev;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 
 
 namespace WpfApp_Chebotarev
@@ -56,25 +57,10 @@ namespace WpfApp_Chebotarev
                     return;
                 }
 
-                try
-                {
-                    using (var context = new DBEntities())
-                    {
-                        context.Users.Add(newUser); 
-                        context.SaveChanges();
-                    }
-
-                    Users.Add(newUser); 
-                    MessageBox.Show($"Пользователь '{newUser.username}' успешно добавлен.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    Console.WriteLine($"Добавлен пользователь: {newUser.username}");
-                    Console.WriteLine($"Текущее количество в Users: {Users.Count}");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ошибка при добавлении пользователя: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                Users.Add(newUser); // Только для отображения
+                MessageBox.Show($"Пользователь '{newUser.username}' успешно добавлен.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            
         }
 
         private void Button_Click_Delete_User(object sender, RoutedEventArgs e)
