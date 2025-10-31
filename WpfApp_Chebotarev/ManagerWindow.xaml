@@ -12,20 +12,51 @@
             <GradientStop Color="Violet" Offset="1.0"/>
         </LinearGradientBrush>
     </Window.Background>
+    <StackPanel>
     <Grid Margin="10">
-        <TabControl Background="Transparent">
-            <TabItem Header="Гости">
-                <Frame Name="GuestFrame" NavigationUIVisibility="Hidden"/>
-            </TabItem>
-            <TabItem Header="Бронирование">
-                <Frame Name="BookingsFrame" NavigationUIVisibility="Hidden"/>
-            </TabItem>
-            <TabItem Header="Номерной фонд">
-                <Frame Name="RoomsFrame" NavigationUIVisibility="Hidden"/>
-            </TabItem>
-            <TabItem Header="Управление клинингом">
-                <Frame Name="CleaningManagementFrame" NavigationUIVisibility="Hidden"/>
-            </TabItem>
-        </TabControl>
-    </Grid>
+            <TabControl Background="Transparent">
+                <TabItem Header="Гости">
+                    <DataGrid x:Name="GuestsDataGrid"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  ItemsSource="{Binding Guests}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="*"/>
+                            <DataGridTextColumn Header="Имя" Binding="{Binding fullName}" Width="*"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding documentNumber}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Бронирование">
+                    <DataGrid x:Name="ReservationsDataGrid"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  ItemsSource="{Binding Reservations}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="*"/>
+                            <DataGridTextColumn Header="ID Гостя" Binding="{Binding guest_id}" Width="*"/>
+                            <DataGridTextColumn Header="ID Комнаты" Binding="{Binding room_id}" Width="*"/>
+                            <DataGridTextColumn Header="Дата въезда" Binding="{Binding checkIn}" Width="*"/>
+                            <DataGridTextColumn Header="Дата выселения" Binding="{Binding checkOut}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Номерной фонд">
+                    <Frame Name="RoomsFrame" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem Header="Управление клинингом">
+                    <Frame Name="CleaningManagementFrame" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <Button x:Name ="ExitButton" Content="Выйти"
+                Width="180"
+                Height="38"
+                Background="Gray"
+                Foreground="White"
+                FontWeight="Bold"
+                Cursor="Hand"
+                IsDefault="True"
+                BorderThickness="0" Click="Button_Click_Exit"/>
+    </StackPanel>
 </Window>

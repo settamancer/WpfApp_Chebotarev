@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Guests">
           <Key>
             <PropertyRef Name="id" />
@@ -28,7 +28,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="floor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="floor" Type="int" Nullable="false" />
           <Property Name="number" Type="int" Nullable="false" />
           <Property Name="category" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="status" Type="nchar" MaxLength="10" />
@@ -48,10 +48,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="lastname" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="firstname" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="username" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="password" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="role" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FailedLoginAttempts" Type="int" />
           <Property Name="IsLocked" Type="bit" />
@@ -97,8 +97,7 @@
             <End Role="Reservations" EntitySet="Reservations" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -121,18 +120,7 @@
           <Property Name="checkIn" Type="DateTime" Precision="0" />
           <Property Name="checkOut" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Guest" Relationship="Self.FK_Reservations_Guests" FromRole="Reservations" ToRole="Guests" />
-          <NavigationProperty Name="Room" Relationship="Self.FK_Reservations_Rooms" FromRole="Reservations" ToRole="Rooms" />
-        </EntityType>
-        <EntityType Name="Room">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="number" Type="Int32" Nullable="false" />
-          <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_Rooms" FromRole="Rooms" ToRole="Reservations" />
+          <NavigationProperty Name="Room" Relationship="DBModel.FK_Reservations_Rooms" FromRole="Reservation" ToRole="Room" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -149,10 +137,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="lastname" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="firstname" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="username" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FailedLoginAttempts" Type="Int32" />
           <Property Name="IsLocked" Type="Boolean" />
@@ -171,33 +159,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reservations_Rooms">
-          <End Role="Rooms" Type="Self.Room" Multiplicity="0..1" />
-          <End Role="Reservations" Type="Self.Reservation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rooms">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Reservations">
-              <PropertyRef Name="room_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Guests" EntityType="Self.Guest" />
           <EntitySet Name="Reservations" EntityType="Self.Reservation" />
-          <EntitySet Name="Rooms" EntityType="Self.Room" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Reservations_Guests" Association="Self.FK_Reservations_Guests">
             <End Role="Guests" EntitySet="Guests" />
             <End Role="Reservations" EntitySet="Reservations" />
           </AssociationSet>
-          <AssociationSet Name="FK_Reservations_Rooms" Association="Self.FK_Reservations_Rooms">
-            <End Role="Rooms" EntitySet="Rooms" />
-            <End Role="Reservations" EntitySet="Reservations" />
+          <EntitySet Name="Rooms" EntityType="DBModel.Room" />
+          <AssociationSet Name="FK_Reservations_Rooms" Association="DBModel.FK_Reservations_Rooms">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Reservation" EntitySet="Reservations" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="floor" Type="Int32" Nullable="false" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <Property Name="category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Reservations" Relationship="DBModel.FK_Reservations_Rooms" FromRole="Room" ToRole="Reservation" />
+        </EntityType>
+        <Association Name="FK_Reservations_Rooms">
+          <End Type="DBModel.Room" Role="Room" Multiplicity="0..1" />
+          <End Type="DBModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="room_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -221,17 +220,6 @@
                 <ScalarProperty Name="room_id" ColumnName="room_id" />
                 <ScalarProperty Name="checkIn" ColumnName="checkIn" />
                 <ScalarProperty Name="checkOut" ColumnName="checkOut" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Rooms">
-            <EntityTypeMapping TypeName="DBModel.Room">
-              <MappingFragment StoreEntitySet="Rooms">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="floor" ColumnName="floor" />
-                <ScalarProperty Name="number" ColumnName="number" />
-                <ScalarProperty Name="category" ColumnName="category" />
-                <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -259,6 +247,17 @@
                 <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
                 <ScalarProperty Name="IsFirstLogin" ColumnName="IsFirstLogin" />
                 <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rooms">
+            <EntityTypeMapping TypeName="DBModel.Room">
+              <MappingFragment StoreEntitySet="Rooms">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="floor" ColumnName="floor" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

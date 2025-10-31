@@ -22,6 +22,14 @@ namespace WpfApp_Chebotarev
         public ManagerWindow()
         {
             InitializeComponent();
+            this.DataContext = new ViewModel();
+        }
+
+        private void Button_Click_Exit(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

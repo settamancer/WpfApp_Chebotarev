@@ -118,7 +118,7 @@ namespace WpfApp_Chebotarev
             }
             catch (Exception ex)
             {
-                // ...
+                // ... 
                 MessageBox.Show($"Ошибка при добавлении пользователя: {ex.Message}", "Ошибка");
             }
         }   

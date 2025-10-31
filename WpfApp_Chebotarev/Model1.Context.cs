@@ -27,8 +27,8 @@ namespace WpfApp_Chebotarev
     
         public virtual DbSet<Guest> Guests { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
-        public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
     }
 }

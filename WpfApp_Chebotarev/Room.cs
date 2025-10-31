@@ -21,7 +21,7 @@ namespace WpfApp_Chebotarev
         }
     
         public int id { get; set; }
-        public string floor { get; set; }
+        public int floor { get; set; }
         public int number { get; set; }
         public string category { get; set; }
         public string status { get; set; }

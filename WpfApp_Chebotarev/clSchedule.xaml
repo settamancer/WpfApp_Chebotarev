@@ -5,33 +5,53 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp_Chebotarev"
         mc:Ignorable="d"
-            Title="График уборки" Height="450" Width="800">
+        Title="График уборки" Height="450" Width="800">
     <Window.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="Violet" Offset="0.0"/>
             <GradientStop Color="DarkViolet" Offset="1.0"/>
         </LinearGradientBrush>
     </Window.Background>
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="Мой график уборок" Grid.Row="0" FontStyle="Italic" FontWeight="Bold" FontSize="30" HorizontalAlignment="Center"/>
-        <DataGrid x:Name="Users"
-           AutoGenerateColumns="False"
-           CanUserAddRows="False"
-           IsReadOnly="False"
-           Margin="10, 10, 10, 10"
-           SelectionMode="Single"
-              Grid.Row="1">
+    <StackPanel Margin="20">
+        <TextBlock Text="Мой график уборок" 
+                   FontStyle="Italic" FontWeight="Bold" FontSize="30" 
+                   HorizontalAlignment="Center" />
+        <DataGrid x:Name="RoomsDataGrid"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  IsReadOnly="False"
+                  Margin="10" 
+                  SelectionMode="Single"
+                  ItemsSource="{Binding Rooms}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Дата уборки" Binding="{Binding cleaningdate}" Width="Auto"/>
-                <DataGridTextColumn Header="Номер" Binding="{Binding number}" Width="Auto"/>
-                <DataGridTextColumn Header="Статус" Binding="{Binding status}" Width="Auto"/>
-                <DataGridTextColumn Header="Действия" Binding="{Binding actions}" Width="Auto"/>
+                <DataGridTextColumn Header="Этаж" Binding="{Binding floor}" Width="*"/>
+                <DataGridTextColumn Header="Номер" Binding="{Binding number}" Width="*"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding category}" Width="*"/>
+                <DataGridCheckBoxColumn Header="Статус уборки" Binding="{Binding status, Mode=TwoWay}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="SaveButton" 
+                    Content="Сохранить изменения" 
+                    Width="180" Height="38" 
+                    Background="Gray"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Cursor="Hand"
+                    IsDefault="True"
+                    BorderThickness="0"
+                    Margin="10"
+                    Click="SaveButton_Click"/>
+            <Button x:Name="ExitButton"
+                    Content="Выйти"
+                    Width="180" Height="38"
+                    Background="Gray"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Cursor="Hand"
+                    IsDefault="True"
+                    BorderThickness="0"
+                    Margin="10" Click="Button_Click_Exit"/>
+        </StackPanel>
+    </StackPanel>
 </Window>
